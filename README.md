@@ -21,9 +21,13 @@ BERT Model :
 
 BERT is acronym for Bidirectional Encoder Representations from Transformers. BERT is a model that is used to represent text.  For a given input statement to have a deeper sense of context, BERT employs bidirectional training and vector represen-tations are created for each word as the output.
 
-Naive Bayes:Naive Bayes Classifier is simple and effective classification algorithm which helps in building fast machine learning models with quick predictions.
+Naive Bayes: 
 
-Random Forest : It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression
+Naive Bayes Classifier is simple and effective classification algorithm which helps in building fast machine learning models with quick predictions.
+
+Random Forest : 
+
+It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression
 and categorical variables in the case of classification. It performs better for classification problems.
 
 #Evaluation Parameters
@@ -63,7 +67,6 @@ Copy the shareable link from google drive daatasets.
 
 Right click on each dataset and goto shareable link, copy whole part and remove excess as shown below in image.
 uploaded and paste it in the code.
-
 ![image](https://user-images.githubusercontent.com/92995757/144969262-05cc170a-3431-4387-ab7b-7cba56285593.png)
 
 
