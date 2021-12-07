@@ -6,6 +6,8 @@ Humor is a exceptionally complex characteristic concept which characterizes huma
 #Data
 
 The dataset employed for the detection of Humor isthe ”ColBERT Dataset” which consists of 200k labeled short texts distinguished between humor and non-humor. News dataset includes 200,853 newsheadlines. Headlines are extracted from categories including politics, wellness, entertainment and parenting. Jokes dataset contains 231,657 jokes/humor short texts taken from Reddit communities.
+
+
 Train Dataset :
 
 ![image](https://user-images.githubusercontent.com/95667642/144960423-9d9ff877-fab9-4fd6-85eb-f2ce18ca8b3c.png)
