@@ -1,11 +1,11 @@
 # Humor-Detection-using-ColBert-Data
 #Introduction
 
-Humor is a exceptionally complex characteristic concept which characterizes human beings and social substances.  Humor is an fundamental component in individual communication.  Because of its subjective nature,finding the structures behind humor, recognize humor and extraction of humor remains a challenge.Humor includes data related to linguistic, psy-chological, neurological and sociological com-ponents. For instance, cognitive aspects as wellas social information are some of the factorsthat should be analyzed in order to understand humor properties.
+Humor is a exceptionally complex characteristic concept which characterizes human beings and social substances.  Humor is an fundamental component in individual communication.  Because of its subjective nature,finding the structures behind humor, recognize humor and extraction of humor remains a challenge. Humor includes data related to linguistic, psychological, neurological and sociological components. For instance, cognitive aspects as well as social information are some of the factors that should be analyzed in order to understand humor properties.
 
 #Data
 
-The dataset employed for the detection of Humor isthe ”ColBERT Dataset” which consists of 200k labeled short texts distinguished between humor and non-humor. News dataset includes 200,853 newsheadlines. Headlines are extracted from categories including politics, wellness, entertainment and parenting. Jokes dataset contains 231,657 jokes/humor short texts taken from Reddit communities.
+The dataset employed for the detection of Humor is the ”ColBERT Dataset” which consists of 200k labeled short texts distinguished between humor and non-humor. News dataset includes 200,853 news headlines. Headlines are extracted from categories including politics, wellness, entertainment and parenting. Jokes dataset contains 231,657 jokes/humor short texts taken from Reddit communities.
 
 
 Train Dataset :
@@ -19,7 +19,7 @@ Test Dataset :
 
 BERT Model :
 
-BERT is acronym for Bidirectional Encoder Representations from Transformers. BERT is a model that is used to represent text.  For a given input statement to have a deeper sense of context, BERT employs bidirectional training and vector represen-tations are created for each word as the output.
+BERT is acronym for Bidirectional Encoder Representations from Transformers. BERT is a model that is used to represent text.  For a given input statement to have a deeper sense of context, BERT employs bidirectional training and vector representations are created for each word as the output.
 
 Naive Bayes: 
 
@@ -27,19 +27,18 @@ Naive Bayes Classifier is simple and effective classification algorithm which he
 
 Random Forest : 
 
-It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression
-and categorical variables in the case of classification. It performs better for classification problems.
+It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression and categorical variables in the case of classification. It performs better for classification problems.
 
 #Evaluation Parameters
 
-Precision : The ability of a classification model toidentify the relevant data points.Precision is num-ber of true positives divided by the number of truepositives plus the number of false positives.
+Precision : The ability of a classification model to identify the relevant data points. Precision is number of true positives divided by the number of true positives plus the number of false positives.
 
-Recall: Ability of a model to find all the relevantcases within a data set.  Recall is defined as thenumber of true positives divided by the number oftrue positives plus the number of false negatives.
+Recall: Ability of a model to find all the relevant cases within a data set.  Recall is defined as the number of true positives divided by the number of true positives plus the number of false negatives.
 
-F1  score  :  F1  Score  is  the  weighted  averageof Precision and Recall.  
+F1  score  :  F1  Score  is  the  weighted  average of Precision and Recall.  
 F1 Score = 2*(Recall *Precision) / (Recall + Precision)
 
-Accuracy:  Accuracy is the performance mea-sure and it is simply a ratio of correctly predictedobservation to the total number of observations
+Accuracy:  Accuracy is the performance measure and it is simply a ratio of correctly predicted observation to the total number of observations
 
 
 
@@ -65,8 +64,8 @@ Navigate to Runtime and click on "Change Runtime Type" to "GPU".
 
 Copy the shareable link from google drive daatasets.
 
-Right click on each dataset and goto shareable link, copy whole part and remove excess as shown below in image.
-uploaded and paste it in the code.
+Right click on each dataset and goto shareable link, copy whole part and remove excess as shown below in image uploaded and paste it in the code.
+
 ![image](https://user-images.githubusercontent.com/92995757/144969262-05cc170a-3431-4387-ab7b-7cba56285593.png)
 
 
