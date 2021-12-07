@@ -21,7 +21,7 @@ The dataset employed for the detection of Humor is the ”ColBERT Dataset” whi
 
 BERT is acronym for Bidirectional Encoder Representations from Transformers. BERT is a model that is used to represent text.  For a given input statement to have a deeper sense of context, BERT employs bidirectional training and vector representations are created for each word as the output.
 
-**Naive Bayes: **
+**Naive Bayes:**
 
 Naive Bayes Classifier is simple and effective classification algorithm which helps in building fast machine learning models with quick predictions.
 
