@@ -1,0 +1,247 @@
+# set the hyperparameters
+batch_size = 32
+max_length = 256
+epochs = 2
+
+#  load tokenizer
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+
+#  load model
+model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+
+#  set device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model.to(device)
+
+#  Set training data
+print("Number of training instances: " + str(len(train_instances)))
+    
+# Get maximum length of sentences
+max_length = 0
+# For every sentence...
+for sent in train_instances:
+  # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
+  input_ids = tokenizer.encode(sent, add_special_tokens=True)
+  # Update the maximum sentence length.
+  max_length = max(max_length, len(input_ids))
+
+train_inputs = [] #index_tensor
+train_masks = [] #attention tensor
+train_text = [] #tokenized text
+
+# For every sentence...
+for sent in train_instances:
+  encoded_dict = tokenizer.encode_plus(
+       sent,  # Sentence to encode.
+       add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
+       max_length=max_length,  # Pad & truncate all sentences.
+       pad_to_max_length=True,
+       return_attention_mask=True,  # Construct attn. masks.
+       return_tensors='pt',  # Return pytorch tensors.
+       )
+
+  # Add the encoded sentence to the list.
+  train_inputs.append(encoded_dict['input_ids'])
+  train_masks.append(encoded_dict['attention_mask'])
+  train_text.append(tokenizer.tokenize(tokenizer.decode(encoded_dict['input_ids'].tolist()[0])))
+
+
+#  Convert to tensors
+train_inputs = torch.stack(train_inputs).squeeze()
+train_Humor = torch.tensor(train_Humor)
+train_masks = torch.stack(train_masks).squeeze()
+
+#checking on my shapes
+#print(train_inputs.shape)
+#print(train_labels.shape)
+#print(train_masks.shape)
+
+train_data = TensorDataset(train_inputs, train_masks, train_Humor)
+train_sampler = RandomSampler(train_data)
+train_dataloader = DataLoader(train_data, sampler=train_sampler, batch_size=16)
+
+#  Set testing data
+print("Number of testing instances: " + str(len(test_instances)))
+    
+# Get maximum length of sentences
+max_length = 0
+# For every sentence...
+for sent in test_instances:
+  # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
+  input_ids = tokenizer.encode(sent, add_special_tokens=True)
+  # Update the maximum sentence length.
+  max_length = max(max_length, len(input_ids))
+
+test_inputs = [] #index_tensor
+test_masks = [] #attention tensor
+test_text = [] #tokenized text
+
+# For every sentence...
+for sent in test_instances:
+  encoded_dict = tokenizer.encode_plus(
+       sent,  # Sentence to encode.
+       add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
+       max_length=max_length,  # Pad & truncate all sentences.
+       pad_to_max_length=True,
+       return_attention_mask=True,  # Construct attn. masks.
+       return_tensors='pt',  # Return pytorch tensors.
+       )
+
+  # Add the encoded sentence to the list.
+  test_inputs.append(encoded_dict['input_ids'])
+  test_masks.append(encoded_dict['attention_mask'])
+  test_text.append(tokenizer.tokenize(tokenizer.decode(encoded_dict['input_ids'].tolist()[0])))
+
+  #  Convert to tensors
+test_inputs = torch.stack(test_inputs).squeeze()
+test_Humor = torch.tensor(test_Humor)
+test_masks = torch.stack(test_masks).squeeze()
+
+test_data = TensorDataset(test_inputs, test_masks, test_Humor)
+test_sampler = RandomSampler(test_data)
+test_dataloader = DataLoader(test_data, sampler=test_sampler, batch_size=16)
+
+#  Train the model
+
+# set parameters
+param_optimizer = list(model.named_parameters())
+no_decay = ['bias', 'gamma', 'beta']
+optimizer_grouped_parameters = [
+        {'params': [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)],
+         'weight_decay_rate': 0.01},
+        {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)],
+         'weight_decay_rate': 0.0}
+    ]
+num_training_steps = len(train_dataloader) * epochs
+num_warmup_steps = 0
+optimizer = AdamW(optimizer_grouped_parameters, lr=2e-5)
+scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=num_warmup_steps,
+                                                num_training_steps=num_training_steps)
+
+train_loss_set = []
+training_stats = []
+
+# trange is a_bert tqdm wrapper around the normal python range
+for _ in trange(epochs, desc="Epoch"):
+  global model
+  print("Epoch: ", _)
+  print("run training")
+
+  #train the model
+  model.train()
+       
+  # Total loss for this epoch.
+  tl_set = []
+  total_loss = 0
+  nb_tr_examples, nb_tr_steps = 0, 0
+
+  # Train the data for one epoch
+  for step, batch in enumerate(train_dataloader):
+    print("Step: " + str(step))
+    # # Add batch to GPU
+    batch = tuple(t.to(device) for t in batch)
+
+    # Unpack the inputs from our dataloader
+    b_input_ids, b_input_mask, b_labels = batch
+    
+    # Clear out the gradients (by default they accumulate)
+    optimizer.zero_grad()
+    
+    # Forward pass
+    outputs = model(b_input_ids, token_type_ids=None, attention_mask=b_input_mask, labels=b_labels)
+    loss, logits = outputs[:2]
+
+    # Accumulate the training loss over all of the batches so that we can
+    # calculate the average loss at the end. `loss` is a_bert Tensor containing a_bert
+    # single value; the `.item()` function just returns the Python value
+    # from the tensor.
+    tl_set.append(loss.item())
+
+    # Backward pass
+    loss.backward()
+    
+    # Update parameters and take a_bert step using the computed gradient
+    optimizer.step()
+    scheduler.step()
+
+    # Update tracking variables
+    total_loss += loss.item()
+    nb_tr_examples += b_input_ids.size(0)
+    nb_tr_steps += 1
+
+    avg_train_loss = total_loss / nb_tr_steps
+    print("Length: " + str(len(tl_set)))
+    print("Average total train loss: {}".format(total_loss / nb_tr_steps))
+    print("Total Loss for this epoch: " + str(total_loss))
+    print("Number of steps for this epoch: " + str(nb_tr_steps))
+        
+  print("Training complete!")
+  
+  #  Inference over the test data and print out the accuracy of the model
+
+# Tracking variables
+total_eval_accuracy = 0
+nb_eval_steps, nb_eval_examples = 0, 0
+predictions, true_labels = [], []
+
+# Evaluate data for one epoch
+for batch in test_dataloader:
+  # Add batch to GPU
+  batch = tuple(t.to(device) for t in batch)
+  
+  # Unpack the inputs from our dataloader
+  b_input_ids, b_input_mask, b_labels = batch
+  
+  # Telling the model_bert not to compute or store gradients, saving memory and speeding up validation
+  with torch.no_grad():
+      # Forward pass, calculate logit predictions
+      outputs = model(b_input_ids, token_type_ids=None, attention_mask=b_input_mask)
+      logits = outputs.logits
+    
+  # Move logits and labels to CPU
+  logits = logits.detach().cpu().numpy()
+  label_ids = b_labels.to('cpu').numpy()
+
+  #  flatten out our predictions and labels to calculate the accuracy
+  pred_flat = np.argmax(logits, axis=1).flatten()
+  labels_flat = label_ids.flatten()
+
+  # b_input_ids - actual sentence 16 labels_flat 16 pred_flat 16
+
+  # text, actual_label, pred_label - map
+  #  calculate accuracy
+  total_eval_accuracy += np.sum(pred_flat == labels_flat) / len(labels_flat)
+  nb_eval_steps += 1
+
+  # get predicitons to list
+  predict_content = logits.argmax(axis=-1).flatten().tolist()
+
+  # Store predictions and true labels
+  predictions.append(predict_content)
+  true_labels.append(label_ids)
+
+print("Testing complete!")
+print("Accuracy over the test set: {}".format(total_eval_accuracy / nb_eval_steps))
+
+test_label = []
+for i in true_labels:
+    for j in i:
+        test_label.append(j)
+ 
+test_label = np.array(test_label)
+test_label
+
+pred = []
+for i in predictions:
+    for j in i:
+        pred.append(j)
+ 
+pred = np.array(pred)
+pred
+
+from sklearn.metrics import confusion_matrix
+Bert_Based = confusion_matrix(test_label, pred)
+Bert_Based
+
+TP1,TN1,FP1,FN1 = Bert_Based[1][1],Bert_Based[0][0],Bert_Based[0][1],Bert_Based[1][0]
+
