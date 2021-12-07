@@ -25,7 +25,7 @@ BERT is acronym for Bidirectional Encoder Representations from Transformers. BER
 
 Naive Bayes Classifier is simple and effective classification algorithm which helps in building fast machine learning models with quick predictions.
 
-**Random Forest : **
+**Random Forest:**
 
 It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression and categorical variables in the case of classification. It performs better for classification problems.
 
