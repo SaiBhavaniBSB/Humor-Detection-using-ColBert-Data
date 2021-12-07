@@ -1,34 +1,36 @@
 # Humor-Detection-using-ColBert-Data
 #Introduction
 
-Humor is a exceptionally complex character-istic concept which characterizes human be-ings and social substances.  Humor is an fun-damental component in individual communica-tion.  Because of its subjective nature,findingthe structures behind humor, recognize humorand extraction of humor remains a challenge.Humor includes data related to linguistic, psy-chological, neurological and sociological com-ponents. For instance, cognitive aspects as wellas social information are some of the factorsthat should be analyzed in order to understandhumor properties.
+Humor is a exceptionally complex characteristic concept which characterizes human beings and social substances.  Humor is an fundamental component in individual communication.  Because of its subjective nature,finding the structures behind humor, recognize humor and extraction of humor remains a challenge.Humor includes data related to linguistic, psy-chological, neurological and sociological com-ponents. For instance, cognitive aspects as wellas social information are some of the factorsthat should be analyzed in order to understand humor properties.
 
 #Data
 
-The dataset employed for the detection of Humor isthe ”ColBERT Dataset” which consists of 200k la-beled short texts distinguished between humor andnon-humor. News dataset includes 200,853 newsheadlines. Headlines are extracted from categoriesincluding politics, wellness, entertainment and par-enting. Jokes dataset contains 231,657 jokes/humorshort texts taken from Reddit communities.
-
-
+The dataset employed for the detection of Humor isthe ”ColBERT Dataset” which consists of 200k labeled short texts distinguished between humor and non-humor. News dataset includes 200,853 newsheadlines. Headlines are extracted from categories including politics, wellness, entertainment and parenting. Jokes dataset contains 231,657 jokes/humor short texts taken from Reddit communities.
 Train Dataset :
 
 ![image](https://user-images.githubusercontent.com/95667642/144960423-9d9ff877-fab9-4fd6-85eb-f2ce18ca8b3c.png)
-
-
 Test Dataset :
 
 ![image](https://user-images.githubusercontent.com/95667642/144960440-cd07ccd9-4ac7-41a9-887a-7d6ecc90e1f1.png)
 
 BERT Model :
 
-BERT is acronym for Bidirectional Encoder Rep-resentations from transformers. BERT is a modelthat is used to represent text.  For a given inputstatement to have a deeper sense of context, BERTemploys bidirectional training and vector represen-tations are created for each word as the output.
+BERT is acronym for Bidirectional Encoder Representations from Transformers. BERT is a model that is used to represent text.  For a given input statement to have a deeper sense of context, BERT employs bidirectional training and vector represen-tations are created for each word as the output.
 
-Naive Bayes:Naive Bayes Classifier is simple and effectiveclassification algorithm which helps in building fastmachine learning models with quick predictions
+Naive Bayes:Naive Bayes Classifier is simple and effective classification algorithm which helps in building fast machine learning models with quick predictions.
+
+Random Forest : It is a Supervised Machine Learning Algorithm that is used widely in Classification and Regression problems. It builds decision trees on different samples and takes majority vote for classification and average in case of regression. Random Forest Algorithm handles the data set containing continuous variables in the case of regression
+and categorical variables in the case of classification. It performs better for classification problems.
 
 #Evaluation Parameters
 
 Precision : The ability of a classification model toidentify the relevant data points.Precision is num-ber of true positives divided by the number of truepositives plus the number of false positives.
+
 Recall: Ability of a model to find all the relevantcases within a data set.  Recall is defined as thenumber of true positives divided by the number oftrue positives plus the number of false negatives.
+
 F1  score  :  F1  Score  is  the  weighted  averageof Precision and Recall.  
 F1 Score = 2*(Recall *Precision) / (Recall + Precision)
+
 Accuracy:  Accuracy is the performance mea-sure and it is simply a ratio of correctly predictedobservation to the total number of observations
 
 
