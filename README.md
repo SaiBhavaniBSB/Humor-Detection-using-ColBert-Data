@@ -9,6 +9,8 @@ The dataset employed for the detection of Humor isthe ”ColBERT Dataset” whic
 Train Dataset :
 
 ![image](https://user-images.githubusercontent.com/95667642/144960423-9d9ff877-fab9-4fd6-85eb-f2ce18ca8b3c.png)
+
+
 Test Dataset :
 
 ![image](https://user-images.githubusercontent.com/95667642/144960440-cd07ccd9-4ac7-41a9-887a-7d6ecc90e1f1.png)
