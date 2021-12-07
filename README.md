@@ -1,4 +1,4 @@
-# Humor-Detection-using-ColBert-Data
+# Humor-Detection-using-ColBERT-Data
 #Introduction
 
 Humor is a exceptionally complex characteristic concept which characterizes human beings and social substances.  Humor is an fundamental component in individual communication.  Because of its subjective nature, finding the structures behind humor, recognize humor and extraction of humor remains a challenge. Humor includes data related to linguistic, psychological, neurological and sociological components. For instance, cognitive aspects as well as social information are some of the factors that should be analyzed in order to understand humor properties.
